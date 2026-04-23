@@ -1,5 +1,5 @@
 {
   "version": 1,
-  "include": ["/functions/*", "/migrate*"],
-  "exclude": ["/*.html", "/*.js", "/*.css", "/*.json"]
+  "include": ["/*"],
+  "exclude": ["/public/*"]
 }
