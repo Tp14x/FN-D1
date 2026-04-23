@@ -46,3 +46,4 @@ CREATE TABLE IF NOT EXISTS requests (
 CREATE INDEX IF NOT EXISTS idx_records_timestamp ON records(timestamp DESC);
 CREATE INDEX IF NOT EXISTS idx_records_car ON records(car);
 CREATE INDEX IF NOT EXISTS idx_requests_user ON requests(user_id);
+
