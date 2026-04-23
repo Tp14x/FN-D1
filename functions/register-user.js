@@ -19,7 +19,6 @@ export async function onRequest(context) {
     const existing = await env.DB.prepare('SELECT user_id FROM users WHERE user_id = ?').bind(userId).first();
     if (existing) return new Response(JSON.stringify({ success: false, exists: true }), { status: 200, headers: cors });
 
-    // ✅ เช็คว่าเป็น admin ไหม
     const isAdmin = userId === env.ADMIN_USER_ID;
 
     const now = new Date().toISOString();
@@ -31,13 +30,12 @@ export async function onRequest(context) {
       formData?.fullName || displayName || 'ไม่ระบุชื่อ',
       formData?.phone || '',
       formData?.department || 'รออนุมัติ',
-      isAdmin ? 'admin' : 'pending',    // ← admin อัตโนมัติ
-      isAdmin ? 'active' : 'pending',    // ← อนุมัติอัตโนมัติ
+      isAdmin ? 'admin' : 'pending',
+      isAdmin ? 'active' : 'pending',
       pictureUrl || null,
       now, now
     ).run();
 
-    // ✅ admin ไม่ต้องสร้าง request
     if (!isAdmin) {
       await env.DB.prepare(`
         INSERT INTO requests (id, user_id, display_name, picture_url, full_name, phone, department, status, submitted_at)
