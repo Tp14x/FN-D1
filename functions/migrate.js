@@ -55,11 +55,11 @@ export async function onRequest(context) {
   const allRecords = [];
   const binIds = [env.OLD_RECORDS_BIN_ID, env.RECORDS_BIN_ID].filter(Boolean);
 
-  for (const binId of binIds) {
-    try {
-      const res = await fetch(`${JSONBIN_API}/${binId}/latest`, {
-        headers: { 'X-Master-Key': key, 'X-Bin-Meta': 'false' }
-      });
+    for (const binId of binIds) {
+      try {
+        const res = await fetch(`${JSONBIN_API}/${binId}/latest`, {
+          headers: { 'X-Master-Key': env.RECORDS_MASTER_KEY, 'X-Bin-Meta': 'false' }
+        });
       const raw = await res.json();
       const data = raw.record || raw;
       const recs = data.records || (Array.isArray(data) ? data : []);
