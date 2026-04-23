@@ -58,7 +58,7 @@ export async function onRequest(context) {
     for (const binId of binIds) {
       try {
         const res = await fetch(`${JSONBIN_API}/${binId}/latest`, {
-          headers: { 'X-Master-Key': env.RECORDS_MASTER_KEY, 'X-Bin-Meta': 'false' }
+          headers: { 'X-Master-Key': env.JSONBIN_MASTER_KEY, 'X-Bin-Meta': 'false' }
         });
       const raw = await res.json();
       const data = raw.record || raw;
